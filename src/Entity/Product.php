@@ -51,9 +51,13 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?User $seller = null;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartsProducts::class)]
+    private Collection $cartsProducts;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->cartsProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +220,36 @@ class Product
     public function setSeller(?User $seller): self
     {
         $this->seller = $seller;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CartsProducts>
+     */
+    public function getCartsProducts(): Collection
+    {
+        return $this->cartsProducts;
+    }
+
+    public function addCartsProduct(CartsProducts $cartsProduct): self
+    {
+        if (!$this->cartsProducts->contains($cartsProduct)) {
+            $this->cartsProducts->add($cartsProduct);
+            $cartsProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartsProduct(CartsProducts $cartsProduct): self
+    {
+        if ($this->cartsProducts->removeElement($cartsProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($cartsProduct->getProduct() === $this) {
+                $cartsProduct->setProduct(null);
+            }
+        }
 
         return $this;
     }
