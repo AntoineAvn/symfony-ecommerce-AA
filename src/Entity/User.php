@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -52,9 +54,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $updateAt = null;
 
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'users')]
+    private Collection $favorites;
+
+    #[ORM\OneToMany(mappedBy: 'seller', targetEntity: Product::class)]
+    private Collection $products;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->favorites = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,6 +229,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdateAt(\DateTimeImmutable $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Product $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Product $favorite): self
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setSeller($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getSeller() === $this) {
+                $product->setSeller(null);
+            }
+        }
 
         return $this;
     }
