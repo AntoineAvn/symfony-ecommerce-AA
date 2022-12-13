@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
 body {
     width: 100%;
     min-height: 100vh;
@@ -7,6 +9,10 @@ body {
     background-color: lightgray;
 
     position: relative;
+}
+
+.home-title{
+    font-family: 'Righteous', cursive;
 }
 
 .form-login{
