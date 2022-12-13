@@ -1,3 +1,30 @@
 body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+
     background-color: lightgray;
+
+    position: relative;
+
+    border: 1px solid red;
+}
+
+.form-login{
+    width: 500px;
+    margin-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-login input{
+    margin: 10px;
+}
+
+.form-control{
+    width: 60%;
 }

@@ -20,7 +20,7 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('image')
             ->add('quantity')
-            ->add('sold')
+            // ->add('sold')
             ->add('price')
             ->add('status')
             /* ->add('createdAt')

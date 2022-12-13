@@ -18,9 +18,24 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
+            ->add('firstname', null, [
+                'attr' => [
+                    'placeholder' => 'Firstname',
+                ],
+                'label' => false,
+            ])
+            ->add('lastname', null, [
+                'attr' => [
+                    'placeholder' => 'Lastname',
+                ],
+                'label' => false,
+            ])
+            ->add('email', null, [
+                'attr' => [
+                    'placeholder' => 'Email',
+                ],
+                'label' => false,
+            ])
             /* ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -36,11 +51,11 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répéter le mot de passe'],
-                
+                'first_options'  => ['label' => false],
+                'second_options' => ['label' => false],
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['placeholder' => 'form.custom.placeholder'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci d\'entrer un mot de passe',

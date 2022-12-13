@@ -23,10 +23,10 @@ class ActionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->save($product, true);
 
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_products', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('product/new.html.twig', [
+        return $this->renderForm('content/product/new.html.twig', [
             'product' => $product,
             'form' => $form,
         ]);
