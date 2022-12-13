@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,10 +55,28 @@ class ContentController extends AbstractController
 
 
     #[Route('/category/{id}', name: 'app_category_read', methods: ['GET'])]
-    public function show(Category $category): Response
+    public function readCategory(Category $category): Response
     {
         return $this->render('content/category/show.html.twig', [
             'category' => $category,
+        ]);
+    }
+
+    /********************************** BRAND ******************************************/
+
+    #[Route('/brand', name: 'app_brands', methods: ['GET'])]
+    public function indexBrands(BrandRepository $brandRepository): Response
+    {
+        return $this->render('content/brand/index.html.twig', [
+            'brands' => $brandRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/brand/{id}', name: 'app_brand_read', methods: ['GET'])]
+    public function readBrand(Brand $brand): Response
+    {
+        return $this->render('content/brand/show.html.twig', [
+            'brand' => $brand,
         ]);
     }
     
