@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +31,22 @@ class UserController extends AbstractController
     } */
 
     #[Route('/profile/{id}', name: 'app_user_read', methods: ['GET'])]
-    public function readUser(User $user): Response
+    public function readUser(User $user, UserRepository $userRepository, ProductRepository $productRepository): Response
     {
-        return $this->render('content/user/profile.html.twig', [
+        //Get id of user connected to get his projects
+        $user = $userRepository->find($this->getUser());
+        $userId = $user->getId();
+
+        $products = $productRepository->findBy(
+            ['seller' => $userId],
+            ['createdAt' => 'DESC'],
+            null,
+            null
+        );
+
+        return $this->render('security/profile.html.twig', [
             'user' => $user,
+            'products' => $products,
         ]);
     }
 
