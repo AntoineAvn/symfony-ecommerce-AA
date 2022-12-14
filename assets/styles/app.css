@@ -50,3 +50,7 @@ body {
 .card-title{
     gap:10px;
 }
+
+.card-show{
+    width: 500px;
+}

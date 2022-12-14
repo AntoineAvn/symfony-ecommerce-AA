@@ -3,9 +3,20 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+    <h1 class="d-flex justify-content-center mt-5">{{ product.name }}</h1>
 
-    <table class="table">
+<div class="card-wrapper d-flex justify-content-center mt-5">
+    <div class="card-show w-75 mb-3">
+        <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title text-primary">{{ product.category.name }}</h5>
+            <p class="card-text mt-2">{{ product.description }}</p>
+            <div class="d-flex justify-content-end"><a href="#" class="btn btn-secondary">Acheter</a></div>
+        </div>
+    </div>
+</div>
+
+   {#  <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -52,7 +63,7 @@
                 <td>{{ product.updateAt ? product.updateAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
-    </table>
+    </table> #}
 
     <a href="{{ path('app_products') }}">back to list</a>
 
