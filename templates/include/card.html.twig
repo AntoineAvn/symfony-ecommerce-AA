@@ -17,6 +17,9 @@
                 {% if product.status == 2 %}
                     <small class="text-danger">Indisponible</small>
                 {% endif %}
+                {% if product.status == 3 %}
+                    <small class="text-warning">Bientôt disponible</small>
+                {% endif %}
                     <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a></div>
                 </div>
             </div>

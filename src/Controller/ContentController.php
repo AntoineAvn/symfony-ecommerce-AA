@@ -41,12 +41,7 @@ class ContentController extends AbstractController
     #[Route('/products', name: 'app_products', methods: ['GET'])]
     public function indexProducts(ProductRepository $productRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $products = $productRepository->findBy(
-            ['status' => 1],
-            ['createdAt' => 'DESC'],
-            null,
-            null
-        );
+        $products = $productRepository->findAll();
 
         $products = $paginator->paginate(
             $products,
