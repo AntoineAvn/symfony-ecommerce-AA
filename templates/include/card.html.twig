@@ -11,7 +11,12 @@
                 </div>
                 <p class="card-text">{{ product.excerpt }}</p>
                 <div class="d-flex justify-content-between">
-                    <small>En stock</small>
+                {% if product.status == 1 %}
+                    <small class="text-success">En stock</small>
+                {% endif %}
+                {% if product.status == 2 %}
+                    <small class="text-danger">Indisponible</small>
+                {% endif %}
                     <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a></div>
                 </div>
             </div>
