@@ -2,15 +2,15 @@
 
     {% for product in products %}
 
-        <div class="m-4" style="width: 25rem;">
+        <div class="card-design m-4" style="width: 25rem;">
             <img src="{{ product.image }}" class="card-img-top" alt="...">
             <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <h5 class="card-title ">{{ product.name }}</h5>
-                <h5 class="card-title text-info">{{ product.category.name }}</h5>
-            </div>
+                <div class="card-title d-flex mb-3">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h5 class="card-title text-primary">({{ product.category.name }})</h5>
+                </div>
                 <p class="card-text">{{ product.excerpt }}</p>
-                <a href="{{ path('app_product_read', {'id': product.id}) }}" class="btn btn-primary">Show</a>
+                <div class="d-flex justify-content-end"><a href="{{ path('app_product_read', {'id': product.id}) }}" class="btn btn-secondary">Show</a></div>
             </div>
         </div>
 

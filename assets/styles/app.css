@@ -32,3 +32,21 @@ body {
 .form-control{
     width: 60%;
 }
+
+.card-design{
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: lightgray;
+}
+
+.card-design img{
+    border-radius: 15px 15px 0px 0px;
+}
+
+.card-body{
+    padding: 22px;
+}
+
+.card-title{
+    gap:10px;
+}
