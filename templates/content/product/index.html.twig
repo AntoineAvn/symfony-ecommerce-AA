@@ -10,49 +10,6 @@
         {% include "include/card.html.twig" %}
     </div>
 
-    {# <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Excerpt</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Quantity</th>
-                <th>Sold</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>CreatedAt</th>
-                <th>UpdateAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.excerpt }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.image }}</td>
-                <td>{{ product.quantity }}</td>
-                <td>{{ product.sold }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.status }}</td>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ product.updateAt ? product.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_product_read', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_update', {'id': product.id}) }}">update</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table> #}
-
-
+    <div class="d-flex justify-content-center mt-5 mb-5">{{ knp_pagination_render (products) }}</div>
+    
 {% endblock %}

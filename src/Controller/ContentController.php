@@ -6,9 +6,10 @@ use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Repository\BrandRepository;
-use App\Repository\CartsProductsRepository;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CartsProductsRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,10 +39,23 @@ class ContentController extends AbstractController
     /********************************** PRODUCT ******************************************/
 
     #[Route('/products', name: 'app_products', methods: ['GET'])]
-    public function indexProducts(ProductRepository $productRepository): Response
+    public function indexProducts(ProductRepository $productRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $products = $productRepository->findBy(
+            ['status' => 1],
+            ['createdAt' => 'DESC'],
+            null,
+            null
+        );
+
+        $products = $paginator->paginate(
+            $products,
+            $request->query->getInt('page', 1),
+            9
+        );
+
         return $this->render('content/product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
         ]);
     }
 
