@@ -10,12 +10,14 @@
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('app_products') }}">Produits</a>
 							</li>
+							{% if (app.user) and (is_granted ('ROLE_ADMIN')) %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('app_categories') }}">Categories</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('app_brands') }}">Brands</a>
 							</li>
+							{% endif %}
 						{% else %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('app_login') }}">Produits</a>
