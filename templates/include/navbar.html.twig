@@ -40,11 +40,11 @@
 										{% endif %} #}
 										{# <li>
 											<a class="dropdown-item text-info" href="{{ path('app_user_show', {'id': app.user.id}) }}">Mon compte</a>
-										</li>
+										</li> #}
 										<li>
-											<a class="dropdown-item text-info" href="{{ path('app_article_showPrivateByUser', {'id': app.user.id}) }}">Mon profil</a>
+											<a class="dropdown-item text-info" href="{{ path('app_user_read', {'id': app.user.id}) }}">Mon profil</a>
 										</li>
-                                        #}
+                                        
 										<li>
 											<a class="dropdown-item text-info" href="{{ path('app_logout') }}">Se déconnecter</a>
 										</li> 
