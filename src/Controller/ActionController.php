@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
-use DateTimeImmutable;
 use App\Entity\Product;
 use App\Form\BrandType;
 use App\Entity\Category;
 use App\Form\ProductType;
 use App\Form\CategoryType;
+use App\Entity\CartsProducts;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\CartsProductsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -172,5 +173,42 @@ class ActionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_brands', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /********************************** CART ******************************************/
+
+    #[Route('/product/add/{id}', name: 'app_product_addCart', methods: ['GET', 'POST'])]
+    public function addProductToCart(Request $request, Product $product, CartsProductsRepository $cpRepository): Response
+    {
+         /** @var User $user **/
+         $user = $this->getUser();
+         $cart = $user->getCart();
+         $cp = $cart->getCartsProducts()->toArray();
+         
+         if(empty($cp)) {
+            $cProduct = new CartsProducts();
+            $cProduct->setQuantity(1);
+            $cProduct->setCart($cart);
+            $cProduct->setProduct($product);
+         }
+         else {
+            foreach ($cp as $cProduct) {
+                if ($cProduct->getProduct()->getId() == $product->getId()) {
+                    $qty = $cProduct->getQuantity();
+                    $cProduct->setQuantity ($qty + 1);
+                    break;
+                }
+                else{
+                    $cProduct = new CartsProducts();
+                    $cProduct->setQuantity(1);
+                    $cProduct->setCart($cart);
+                    $cProduct->setProduct($product);
+                }
+            }
+        }
+        
+        $cpRepository->save($cProduct, true);
+
+        return $this->redirectToRoute('app_products', [], Response::HTTP_SEE_OTHER);
     }
 }
