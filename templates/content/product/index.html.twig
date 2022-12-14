@@ -3,9 +3,14 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <h1 class="d-flex justify-content-center mt-5">Products</h1>
+        <a href="{{ path('app_product_create') }}">Create new</a>
 
-    <table class="table">
+    <div class="card-wrapper d-flex justify-content-center mt-3 flex-wrap">
+        {% include "include/card.html.twig" %}
+    </div>
+
+    {# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -47,7 +52,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
 
-    <a href="{{ path('app_product_create') }}">Create new</a>
+
 {% endblock %}

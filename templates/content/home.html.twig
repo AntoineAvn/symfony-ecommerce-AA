@@ -15,19 +15,7 @@
 <h4 class="mt-2 d-flex flex-column align-items-center justify-content-center">Retrouvez nos meilleures ventes </h4>
 
 <div class="card-wrapper d-flex justify-content-center mt-3">
-    {% for product in products %}
-
-        <div class="card m-4" style="width: 25rem;">
-            <img src="{{ product.image }}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.excerpt }}</p>
-                <a href="{{ path('app_product_read', {'id': product.id}) }}" class="btn btn-primary">Show</a>
-            </div>
-        </div>
-
-    {% endfor %}
+    {% include "include/card.html.twig" %}
 </div>
-
 
 {% endblock %}
