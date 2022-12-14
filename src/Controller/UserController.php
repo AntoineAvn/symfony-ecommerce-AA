@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\User;
+use App\Form\RegistrationFormType;
+use App\Security\UserAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use App\Form\RegistrationFormType;
-use App\Security\UserAuthenticator;
 
 
 
@@ -27,6 +28,14 @@ class UserController extends AbstractController
         ]);
     } */
 
+    #[Route('/profile/{id}', name: 'app_user_read', methods: ['GET'])]
+    public function readUser(User $user): Response
+    {
+        return $this->render('content/user/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -35,6 +44,10 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $cart = new Cart();
+            $user->setCart($cart);
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
