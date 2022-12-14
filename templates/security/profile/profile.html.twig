@@ -3,9 +3,9 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    {# <h1 class="d-flex justify-content-center mt-5">Mes informations</h1> #}
+    <h1 class="d-flex justify-content-center mt-5">Mes informations</h1>
 
-    <table class="table d-flex justify-content-center align-items-center mt-5">
+    <table class="table d-flex justify-content-center align-items-center mt-4">
         <tbody class="info-user">
             <tr>
                 <th>Prénom</th>
@@ -43,6 +43,8 @@
         </tbody>
 
     </table>
+
+    <h1 class="d-flex justify-content-center mt-5">Mes produits</h1>
 
     <div class="card-wrapper d-flex justify-content-center mt-3 flex-wrap">
         {% include "include/card.html.twig" %}
