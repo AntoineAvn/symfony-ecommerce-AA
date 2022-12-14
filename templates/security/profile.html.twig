@@ -3,20 +3,50 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    <h1>Profile</h1>
+    {# <h1 class="d-flex justify-content-center mt-5">Mes informations</h1> #}
 
-    <table class="table">
-        <tbody>
+    <table class="table d-flex justify-content-center align-items-center mt-5">
+        <tbody class="info-user">
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th>Prénom</th>
                 <td>{{ user.firstname }}</td>
             </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Numéro</th>
+                {% if user.phoneNumber %}
+                    <td>{{ user.phoneNumber }}</td>
+                {% else %}
+                    <td>Non renseigné</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                {% if user.adress and user.zipCode and user.country %}
+                    <td>{{ user.adress }} - {{ user.zipCode }}, {{ user.country }}</td>
+                {% else %}
+                    <td>Non renseigné</td>
+                {% endif %}
+                    
+            </tr>
+            <tr>
+                <td><a href="{{ path('app_brand_update', {'id': user.id}) }}">Modifier infos</a></td>
+                <td><a href="{{ path('app_brand_update', {'id': user.id}) }}">Modifier mot de passe</a></td>
+            </tr>
         </tbody>
+
     </table>
+
+    <div class="card-wrapper d-flex justify-content-center mt-3 flex-wrap">
+        {% include "include/card.html.twig" %}
+    </div>
 
 {#     <a href="{{ path('app_brands') }}">back to list</a>
 
