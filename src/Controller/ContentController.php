@@ -23,7 +23,7 @@ class ContentController extends AbstractController
 
         $products = $productRepository->findBy(
             ['status' => 1],
-            ['createdAt' => 'DESC'],
+            ['sold' => 'DESC'],
             3,
             null
         );
