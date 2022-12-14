@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Entity\User;
+use App\Form\UserType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
@@ -44,9 +45,32 @@ class UserController extends AbstractController
             null
         );
 
-        return $this->render('security/profile.html.twig', [
+        return $this->render('security/profile/profile.html.twig', [
             'user' => $user,
             'products' => $products,
+        ]);
+    }
+
+    #[Route('/profile/{id}/update', name: 'app_user_update', methods: ['GET', 'POST'])]
+    public function updateProfile(Request $request, User $user, UserRepository $userRepository): Response
+    {
+
+        //Get id of user connected to get his projects
+        $user = $userRepository->find($this->getUser());
+        $userId = $user->getId();
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute('app_user_read', ['id' => $userId], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('security/profile/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
         ]);
     }
 
