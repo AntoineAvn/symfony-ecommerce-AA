@@ -21,66 +21,7 @@
     </head>
 
     <header>
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						{% if app.user %}
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_products') }}">Produits</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_categories') }}">Categories</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_brands') }}">Brands</a>
-							</li>
-						{% else %}
-							<li class="nav-item">
-								<a class="nav-link" href="{{ path('app_login') }}">Produits</a>
-							</li>
-						{% endif %}
-					</ul>
-					<ul class="navbar-nav mb-2 mb-lg-0 ml-auto">
-						<li class="nav-item">
-							{% if app.user %}
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									{{ app.user.firstname }}
-									{{ app.user.lastname }}
-									</a>
-									<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-										{# {% if (app.user) and (is_granted ('ROLE_ADMIN')) %}
-											<li class="nav-item">
-												<a class="nav-link text-warning" href="{{ path('app_admin') }}">Admin</a>
-											</li>
-										{% endif %} #}
-										{# <li>
-											<a class="dropdown-item text-info" href="{{ path('app_user_show', {'id': app.user.id}) }}">Mon compte</a>
-										</li>
-										<li>
-											<a class="dropdown-item text-info" href="{{ path('app_article_showPrivateByUser', {'id': app.user.id}) }}">Mon profil</a>
-										</li>
-                                        #}
-										<li>
-											<a class="dropdown-item text-info" href="{{ path('app_logout') }}">Se déconnecter</a>
-										</li> 
-									</ul>
-								</li>
-							{% else %}
-								<a class="nav-link text-info" href="{{ path('app_login') }}">Se connecter</a>
-							{% endif %}
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-    
+        {% include "include/navbar.html.twig" %} {# NAVBAR #}
     </header>
 
     <body>
