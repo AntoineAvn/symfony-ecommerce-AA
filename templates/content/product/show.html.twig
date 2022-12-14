@@ -11,59 +11,10 @@
         <div class="card-body">
             <h5 class="card-title text-primary">{{ product.category.name }}</h5>
             <p class="card-text mt-2">{{ product.description }}</p>
-            <div class="d-flex justify-content-end"><a href="#" class="btn btn-secondary">Acheter</a></div>
+            <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a></div>
         </div>
     </div>
 </div>
-
-   {#  <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Excerpt</th>
-                <td>{{ product.excerpt }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-            </tr>
-            <tr>
-                <th>Quantity</th>
-                <td>{{ product.quantity }}</td>
-            </tr>
-            <tr>
-                <th>Sold</th>
-                <td>{{ product.sold }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ product.status }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdateAt</th>
-                <td>{{ product.updateAt ? product.updateAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table> #}
 
     <a href="{{ path('app_products') }}">back to list</a>
 
