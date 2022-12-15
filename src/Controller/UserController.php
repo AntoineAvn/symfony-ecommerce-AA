@@ -76,7 +76,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/profile/{id}/update-password', name: 'app_user_update_password', methods: ['GET', 'POST'])]
-    public function updatePassword(Request $request, User $user, UserRepository $userRepository): Response
+    public function updatePassword(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
 
         //Get id of user connected to get his projects
@@ -87,6 +87,15 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // encode the plain password
+             $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+            );
+
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_user_read', ['id' => $userId], Response::HTTP_SEE_OTHER);
