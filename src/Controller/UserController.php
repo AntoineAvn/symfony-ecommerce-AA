@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\PasswordFormType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
@@ -60,6 +61,29 @@ class UserController extends AbstractController
         $userId = $user->getId();
 
         $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute('app_user_read', ['id' => $userId], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('security/profile/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/profile/{id}/update-password', name: 'app_user_update_password', methods: ['GET', 'POST'])]
+    public function updatePassword(Request $request, User $user, UserRepository $userRepository): Response
+    {
+
+        //Get id of user connected to get his projects
+        $user = $userRepository->find($this->getUser());
+        $userId = $user->getId();
+
+        $form = $this->createForm(PasswordFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
