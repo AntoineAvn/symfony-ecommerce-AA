@@ -52,6 +52,8 @@
         {% include "include/card.html.twig" %}
     </div>
 
+    {{ include('security/profile/_delete_form.html.twig') }}
+
 {#     <a href="{{ path('app_brands') }}">back to list</a>
 
     <a href="{{ path('app_brand_update', {'id': brand.id}) }}">update</a>
