@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProductType extends AbstractType
 {
@@ -22,7 +23,13 @@ class ProductType extends AbstractType
             ->add('quantity')
             // ->add('sold')
             ->add('price')
-            ->add('status')
+            ->add('status', ChoiceType::class, [
+                'choices'  => [
+                    'Disponible' => 1,
+                    'Bientôt en stock' => 2,
+                    'Indisponible' => 3,
+                ],
+            ])
             /* ->add('createdAt')
             ->add('updateAt') */
             // ->add('users')
