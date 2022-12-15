@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Brand;
 use App\Entity\Product;
 use App\Form\BrandType;
@@ -9,6 +10,7 @@ use App\Entity\Category;
 use App\Form\ProductType;
 use App\Form\CategoryType;
 use App\Entity\CartsProducts;
+use App\Repository\UserRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
@@ -177,11 +179,12 @@ class ActionController extends AbstractController
 
     /********************************** CART ******************************************/
 
-    #[Route('/product/add/{id}', name: 'app_product_addCart', methods: ['GET', 'POST'])]
+    #[Route('/product/add-cart/{id}', name: 'app_product_addCart', methods: ['GET', 'POST'])]
     public function addProductToCart(Request $request, Product $product, CartsProductsRepository $cpRepository): Response
     {
          /** @var User $user **/
          $user = $this->getUser();
+         $userId = $this->getUser()->getId();
          $cart = $user->getCart();
          $cp = $cart->getCartsProducts()->toArray();
          
@@ -209,6 +212,58 @@ class ActionController extends AbstractController
         
         $cpRepository->save($cProduct, true);
 
-        return $this->redirectToRoute('app_products', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_profile_cart', ['id' => $userId], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/product/delete-cart/{id}', name: 'app_product_deleteCart', methods: ['GET', 'POST'])]
+    public function deleteCart(Product $product, CartsProductsRepository $cpRepository): Response
+    {
+         /** @var User $user **/
+         $user = $this->getUser();
+         $userId = $this->getUser()->getId();
+
+         $cart = $user->getCart();
+         $cp = $cart->getCartsProducts()->toArray();
+
+        $cart = $user->getCart();
+        $cp = $cart->getCartsProducts()->toArray();
+
+        foreach ($cp as $cProduct) {
+            // dd($cProduct->getId());
+            if ($cProduct->getId() == $product->getId()) {
+                $qty = $cProduct->getQuantity();
+                // dd($qty);
+                $cProduct->setQuantity ($qty - 1);
+            }
+        }
+
+        $cpRepository->save($cProduct, true);
+
+        return $this->redirectToRoute('app_profile_cart', ['id' => $userId], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/product/delete-product-cart/{id}', name: 'app_product_deleteProductCart', methods: ['GET', 'POST'])]
+    public function deleteProductCart(Product $product, CartsProductsRepository $cpRepository): Response
+    {
+
+         /** @var User $user **/
+         $user = $this->getUser();
+         $userId = $this->getUser()->getId();
+
+         $cart = $user->getCart();
+         $cp = $cart->getCartsProducts()->toArray();
+
+        $cart = $user->getCart();
+        $cp = $cart->getCartsProducts()->toArray();
+
+        foreach ($cp as $cProduct) {
+            if ($cProduct->getId() == $product->getId()) {
+                $cpRepository->remove($cProduct, true);
+            }
+        }
+
+        
+
+        return $this->redirectToRoute('app_profile_cart', ['id' => $userId], Response::HTTP_SEE_OTHER);
     }
 }
