@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\User;
 use App\Form\UserType;
+use Stripe\StripeClient;
 use App\Form\PasswordFormType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -173,4 +174,48 @@ class UserController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    #[Route('/profile/{id}/cart', name: 'app_profile_cart', methods: ['GET'])]
+    public function readCart(User $user): Response
+    {
+        $cart = $user->getCart();
+        $products = $cart->getCartsProducts()->toArray();
+
+        $quantities =[];
+
+        foreach ($products as $product) {
+            array_push($quantities, $product->getQuantity() * $product->getproduct()->getPrice());
+        }
+
+        $totalPrice = array_sum($quantities);
+
+        return $this->render('security/profile/cart.html.twig', [
+            'user' => $user,
+            'products' => $products,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+
+    /* #[Route('/profile/{id}/checkout', name: 'app_profile_checkout', methods: ['GET'])]
+    public function cartCheckout(User $user)
+    {
+
+        $currentUser = $this->getUser()->getId();
+
+        if (!$currentUser !== $user->getId()) {
+            return $this->redirectToRoute('app_user_read', ['id' => $currentUser]);
+        }
+
+        $stripe = new StripeClient($this->getParameter('stripe_sk'));
+        $customer = $paymentIntents->create([
+            'amount' => $total,
+            'currency' => 'eur',
+            'payment_method' => 'pm_card_visa',
+        ]);
+        echo $customer;
+
+        dd($stripe);
+
+        return $this->render('security/profile/checkout.html.twig');
+    } */
 }
