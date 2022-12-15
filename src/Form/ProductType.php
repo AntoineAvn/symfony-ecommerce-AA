@@ -6,6 +6,7 @@ use App\Entity\Brand;
 use App\Entity\Product;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,8 +18,8 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('excerpt')
-            ->add('description')
+            ->add('excerpt', CKEditorType::class)
+            ->add('description', CKEditorType::class)
             ->add('image')
             ->add('quantity')
             // ->add('sold')

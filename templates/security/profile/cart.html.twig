@@ -22,7 +22,7 @@
                     <h5 class="card-title">{{ product.product.name }}</h5>
                     <small class="card-title text-primary">({{ product.product.category.name }})</small>
                 </div>
-                <p class="card-text">{{ product.product.excerpt }}</p>
+                <p class="card-text">{{ product.product.excerpt|raw }}</p>
                  <p class="card-text"><b>Quantité dans mon panier: {{ product.quantity }}</b></p>
                 <div class="d-flex justify-content-between">
                         <a href="{{ path('app_product_deleteProductCart', {'id': product.id}) }}" class="text-danger">Supprimer de mon panier</a>
