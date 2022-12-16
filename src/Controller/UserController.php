@@ -179,7 +179,9 @@ class UserController extends AbstractController
     public function readCart(User $user): Response
     {
         $cart = $user->getCart();
-        $products = $cart->getCartsProducts()->toArray();
+
+        if ($cart) {
+            $products = $cart->getCartsProducts()->toArray();
 
         $quantities =[];
 
@@ -193,6 +195,11 @@ class UserController extends AbstractController
             'user' => $user,
             'products' => $products,
             'totalPrice' => $totalPrice
+        ]);
+        }
+        
+        return $this->render('security/profile/cart.html.twig', [
+            'user' => $user
         ]);
     }
 
