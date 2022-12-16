@@ -229,9 +229,6 @@ class ActionController extends AbstractController
          $cart = $user->getCart();
          $cp = $cart->getCartsProducts()->toArray();
 
-        $cart = $user->getCart();
-        $cp = $cart->getCartsProducts()->toArray();
-
         foreach ($cp as $cProduct) {
             // dd($cProduct->getId());
             if ($cProduct->getId() == $product->getId()) {
