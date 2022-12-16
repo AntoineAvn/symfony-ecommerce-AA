@@ -38,7 +38,12 @@
             </div>
 
         {% endfor %}
+
     </div>
+
+    {% if products %}
+        <a href="{{ path('app_product_deleteAllProductCart') }}" class="d-flex justify-content-center mt-5 text-danger">Vider mon panier</a>
+    {% endif %}
 
 {% else %}
 

@@ -257,16 +257,29 @@ class ActionController extends AbstractController
          $cart = $user->getCart();
          $cp = $cart->getCartsProducts()->toArray();
 
-        $cart = $user->getCart();
-        $cp = $cart->getCartsProducts()->toArray();
-
         foreach ($cp as $cProduct) {
             if ($cProduct->getId() == $product->getId()) {
                 $cpRepository->remove($cProduct, true);
             }
         }
 
-        
+        return $this->redirectToRoute('app_profile_cart', ['id' => $userId], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/product/delete-all-product-cart/', name: 'app_product_deleteAllProductCart', methods: ['GET', 'POST'])]
+    public function deleteAllProductCart(CartsProductsRepository $cpRepository): Response
+    {
+
+        /** @var User $user **/
+        $user = $this->getUser();
+        $userId = $this->getUser()->getId();
+
+        $cart = $user->getCart();
+        $cp = $cart->getCartsProducts()->toArray();
+
+        foreach ($cp as $cProduct) {
+            $cpRepository->remove($cProduct, true);
+        }
 
         return $this->redirectToRoute('app_profile_cart', ['id' => $userId], Response::HTTP_SEE_OTHER);
     }
