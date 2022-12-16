@@ -186,31 +186,35 @@ class ActionController extends AbstractController
          $user = $this->getUser();
          $userId = $this->getUser()->getId();
          $cart = $user->getCart();
-         $cp = $cart->getCartsProducts()->toArray();
+
+         if ($cart) {
+            $cp = $cart->getCartsProducts()->toArray();
          
-         if(empty($cp)) {
-            $cProduct = new CartsProducts();
-            $cProduct->setQuantity(1);
-            $cProduct->setCart($cart);
-            $cProduct->setProduct($product);
-         }
-         else {
-            foreach ($cp as $cProduct) {
-                if ($cProduct->getProduct()->getId() == $product->getId()) {
-                    $qty = $cProduct->getQuantity();
-                    $cProduct->setQuantity ($qty + 1);
-                    break;
-                }
-                else{
-                    $cProduct = new CartsProducts();
-                    $cProduct->setQuantity(1);
-                    $cProduct->setCart($cart);
-                    $cProduct->setProduct($product);
+            if(empty($cp)) {
+                $cProduct = new CartsProducts();
+                $cProduct->setQuantity(1);
+                $cProduct->setCart($cart);
+                $cProduct->setProduct($product);
+            }
+            else {
+                foreach ($cp as $cProduct) {
+                    if ($cProduct->getProduct()->getId() == $product->getId()) {
+                        $qty = $cProduct->getQuantity();
+                        $cProduct->setQuantity ($qty + 1);
+                        break;
+                    }
+                    else{
+                        $cProduct = new CartsProducts();
+                        $cProduct->setQuantity(1);
+                        $cProduct->setCart($cart);
+                        $cProduct->setProduct($product);
+                    }
                 }
             }
-        }
-        
-        $cpRepository->save($cProduct, true);
+            
+            $cpRepository->save($cProduct, true);
+         }
+         
 
         return $this->redirectToRoute('app_profile_cart', ['id' => $userId], Response::HTTP_SEE_OTHER);
     }
