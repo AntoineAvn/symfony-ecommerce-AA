@@ -70,6 +70,8 @@ body {
     border-radius: 15px;
     width: fit-content;
     padding: 20px 60px 20px 60px;
+}
 
-    /* border: 1px solid red; */
+#register-link{
+    gap:8px;
 }

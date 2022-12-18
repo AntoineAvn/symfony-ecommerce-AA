@@ -12,15 +12,15 @@
 
         {% if app.user %}
             <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                Vous êtes connecté {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
             </div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Connectez-vous !</h1>
         <label for="inputEmail"></label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="Email" required autofocus>
         <label for="inputPassword"></label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Password" required>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Mot de passe" required>
 
         <input type="hidden" name="_csrf_token"
             value="{{ csrf_token('authenticate') }}"
@@ -38,10 +38,10 @@
         #}
 
         <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
+            Se connecter
         </button>
 
-        <p class="d-flex flex-row">Not a member ? <a class="nav-link text-info" href="{{ path('app_register') }}"> Register</a></p>
+        <p class="d-flex flex-row mt-4" id="register-link">Pas encore membre ? <a class="nav-link text-info" href="{{ path('app_register') }}"> S'enregistrer</a></p>
 
     </form>
 </div>
