@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="d-flex justify-content-center mt-5">{{ product.name }}</h1>
 
-<div class="card-wrapper d-flex justify-content-center mt-5">
+<div class="card-wrapper d-flex flex-column align-items-center justify-content-center mt-5">
     <div class="card-show w-75 mb-3">
         {% if product.image %}
 			<a href="{{ path('app_product_read', {'id': product.id}) }}"><img src="{{ product.image }}" class="card-img-top" alt="..."></a>
@@ -15,14 +15,32 @@
         <div class="card-body">
             <h5 class="card-title text-primary">{{ product.category.name }}</h5>
             <p class="card-text mt-2">{{ product.description|raw }}</p>
-            <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a></div>
+            {% if product.status == 1 %}
+					<small class="text-success">En stock</small>
+					<div class="d-flex justify-content-end">
+						  <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a></div>
+					</div>
+				{% endif %}
+				{% if product.status == 2 %}
+					<small class="text-danger">Indisponible</small>
+					<div class="d-flex justify-content-end">
+						<a href="#" class="btn btn-secondary">Rupture de sotck</a>
+					</div>
+				{% endif %}
+				{% if product.status == 3 %}
+					<small class="text-warning">Bientôt disponible</small>
+					<div class="d-flex justify-content-end">
+						<a href="#" class="btn btn-secondary">Rupture de stock</a>
+					</div>
+				{% endif %}
         </div>
     </div>
-</div>
 
-    <a href="{{ path('app_products') }}">back to list</a>
+        <a href="{{ path('app_products') }}">Retour à la liste des produits</a>
 
-    <a href="{{ path('app_product_update', {'id': product.id}) }}">Update</a>
+    <a href="{{ path('app_product_update', {'id': product.id}) }}">Mettre à jour</a>
 
     {{ include('content/product/_delete_form.html.twig') }}
+
+</div>
 {% endblock %}

@@ -38,6 +38,8 @@ security:
         - { path: ^/products, roles: ROLE_USER }
         - { path: ^/stripe/, roles: ROLE_USER }
 
+    access_denied_url: /access-denied
+
 when@test:
     security:
         password_hashers:

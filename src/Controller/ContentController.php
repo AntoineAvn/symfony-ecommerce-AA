@@ -61,42 +61,4 @@ class ContentController extends AbstractController
             'product' => $product,
         ]);
     }
-
-    /********************************** CATEGORY ******************************************/
-
-    #[Route('/categories', name: 'app_categories', methods: ['GET'])]
-    public function indexCategories(CategoryRepository $categoryRepository): Response
-    {
-        return $this->render('content/category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-        ]);
-    }
-
-
-    #[Route('/category/{id}', name: 'app_category_read', methods: ['GET'])]
-    public function readCategory(Category $category): Response
-    {
-        return $this->render('content/category/show.html.twig', [
-            'category' => $category,
-        ]);
-    }
-
-    /********************************** BRAND ******************************************/
-
-    #[Route('/brand', name: 'app_brands', methods: ['GET'])]
-    public function indexBrands(BrandRepository $brandRepository): Response
-    {
-        return $this->render('content/brand/index.html.twig', [
-            'brands' => $brandRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/brand/{id}', name: 'app_brand_read', methods: ['GET'])]
-    public function readBrand(Brand $brand): Response
-    {
-        return $this->render('content/brand/show.html.twig', [
-            'brand' => $brand,
-        ]);
-    }
-    
 }

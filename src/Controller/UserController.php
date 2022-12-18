@@ -25,14 +25,6 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class UserController extends AbstractController
 {
-    /* #[Route('/user', name: 'app_user')]
-    public function index(): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    } */
-
     #[Route('/profile/{id}', name: 'app_user_read', methods: ['GET'])]
     public function readUser(User $user, UserRepository $userRepository, ProductRepository $productRepository): Response
     {
@@ -203,26 +195,9 @@ class UserController extends AbstractController
         ]);
     }
 
-    /* #[Route('/profile/{id}/checkout', name: 'app_profile_checkout', methods: ['GET'])]
-    public function cartCheckout(User $user)
+    #[Route(path: '/access-denied', name: 'app_access_denied')]
+    public function accessDenied()
     {
-
-        $currentUser = $this->getUser()->getId();
-
-        if (!$currentUser !== $user->getId()) {
-            return $this->redirectToRoute('app_user_read', ['id' => $currentUser]);
-        }
-
-        $stripe = new StripeClient($this->getParameter('stripe_sk'));
-        $customer = $paymentIntents->create([
-            'amount' => $total,
-            'currency' => 'eur',
-            'payment_method' => 'pm_card_visa',
-        ]);
-        echo $customer;
-
-        dd($stripe);
-
-        return $this->render('security/profile/checkout.html.twig');
-    } */
+        return $this->render('security\access_denied.html.twig');
+    }
 }

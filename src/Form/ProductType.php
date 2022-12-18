@@ -17,13 +17,34 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('excerpt', CKEditorType::class)
+            ->add('name', null, [
+                'attr' => [
+                    'placeholder' => 'Nom du produit',
+                ],
+                'label' => false,
+            ])
+            ->add('excerpt', CKEditorType::class, [
+                'label' => 'Extrait',
+            ])
             ->add('description', CKEditorType::class)
-            ->add('image')
-            ->add('quantity')
-            // ->add('sold')
-            ->add('price')
+            ->add('image', null, [
+                'attr' => [
+                    'placeholder' => 'Image du produit',
+                ],
+                'label' => false,
+            ])
+            ->add('quantity', null, [
+                'attr' => [
+                    'placeholder' => 'Quantité du produit',
+                ],
+                'label' => false,
+            ])
+            ->add('price', null, [
+                'attr' => [
+                    'placeholder' => 'Prix du produit',
+                ],
+                'label' => false,
+            ])
             ->add('status', ChoiceType::class, [
                 'choices'  => [
                     'Disponible' => 1,
@@ -31,10 +52,6 @@ class ProductType extends AbstractType
                     'Indisponible' => 3,
                 ],
             ])
-            /* ->add('createdAt')
-            ->add('updateAt') */
-            // ->add('users')
-            // ->add('seller')
             ->add('category', EntityType::class, [
                 "class" => Category::class,
                 "label" => "Categorie",

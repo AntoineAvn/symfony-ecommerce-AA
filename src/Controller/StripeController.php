@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/stripe')]
 class StripeController extends AbstractController
 {
 
@@ -68,13 +69,13 @@ class StripeController extends AbstractController
         return $this->redirect($checkout_session->url);
     }
 
-    #[Route('/stripe-success', name: 'app_stripe_success')]
+    #[Route('/success', name: 'app_stripe_success')]
     public function stripeSuccess(): Response
     {
         return $this->render('stripe/success.html.twig');
     }
 
-    #[Route('/stripe-cancel', name: 'app_stripe_cancel')]
+    #[Route('/cancel', name: 'app_stripe_cancel')]
     public function stripeCancel(): Response
     {
         return $this->render('stripe/cancel.html.twig');

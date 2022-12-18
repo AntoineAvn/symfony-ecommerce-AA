@@ -6,7 +6,8 @@
 
 <h1 class="d-flex justify-content-center mt-5">Mon panier</h1>
 
-{% if products is defined %}
+
+{% if products is not null and products is not empty %}
 
     <h5 class="d-flex justify-content-center text-primary">Total: {{ totalPrice }}&euro;</h5>
 
