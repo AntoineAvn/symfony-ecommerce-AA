@@ -61,8 +61,8 @@ class StripeController extends AbstractController
         $checkout_session = $stripe->checkout->sessions->create([
         'line_items' => [$data],
         'mode' => 'payment',
-        'success_url' => 'http://127.0.0.1:8000/stripe-success', //HTTP à changer selon serveur local
-        'cancel_url' => 'http://127.0.0.1:8000/stripe-cancel', //A changer ""
+        'success_url' => 'http://127.0.0.1:8000/stripe/success', //HTTP à changer selon serveur local
+        'cancel_url' => 'http://127.0.0.1:8000/stripe/cancel', //A changer ""
         ]);
 
         //Redirection vers l'url stripe
