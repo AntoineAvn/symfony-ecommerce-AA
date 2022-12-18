@@ -35,6 +35,8 @@ security:
         - { path: ^/admin/, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/product/, roles: ROLE_USER }
+        - { path: ^/products, roles: ROLE_USER }
+        - { path: ^/stripe/, roles: ROLE_USER }
 
 when@test:
     security:
