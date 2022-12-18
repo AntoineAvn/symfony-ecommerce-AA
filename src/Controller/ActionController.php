@@ -137,11 +137,15 @@ class ActionController extends AbstractController
          $cp = $cart->getCartsProducts()->toArray();
 
         foreach ($cp as $cProduct) {
-            // dd($cProduct->getId());
-            if ($cProduct->getId() == $product->getId()) {
+            if ($cProduct->getProduct()->getId() == $product->getId()) {
                 $qty = $cProduct->getQuantity();
-                // dd($qty);
                 $cProduct->setQuantity ($qty - 1);
+
+                //Remove product from cart if quantity is <= 0 
+                if ($cProduct->getQuantity() <= 0) {
+                    $cProductId = $cProduct->getProduct()->getId();
+                    return $this->redirectToRoute('app_product_deleteProductCart', ['id' => $cProductId], Response::HTTP_SEE_OTHER);
+                }
             }
         }
 
@@ -162,7 +166,7 @@ class ActionController extends AbstractController
          $cp = $cart->getCartsProducts()->toArray();
 
         foreach ($cp as $cProduct) {
-            if ($cProduct->getId() == $product->getId()) {
+            if ($cProduct->getProduct()->getId() == $product->getId()) {
                 $cpRepository->remove($cProduct, true);
             }
         }
