@@ -15,16 +15,22 @@
 			<div class="d-flex justify-content-between">
 				{% if product.status == 1 %}
 					<small class="text-success">En stock</small>
+					<div class="d-flex justify-content-end">
+						<a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+					</div>
 				{% endif %}
 				{% if product.status == 2 %}
 					<small class="text-danger">Indisponible</small>
+					<div class="d-flex justify-content-end">
+						<a href="#" class="btn btn-secondary">Rupture de sotck</a>
+					</div>
 				{% endif %}
 				{% if product.status == 3 %}
 					<small class="text-warning">Bientôt disponible</small>
+					<div class="d-flex justify-content-end">
+						<a href="#" class="btn btn-secondary">Rupture de stock</a>
+					</div>
 				{% endif %}
-				<div class="d-flex justify-content-end">
-					<a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a>
-				</div>
 			</div>
 		</div>
 	</div>
