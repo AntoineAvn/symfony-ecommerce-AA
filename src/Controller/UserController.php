@@ -24,23 +24,29 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class UserController extends AbstractController
 {
     #[Route('/profile/{id}', name: 'app_user_read', methods: ['GET'])]
-    public function readUser(User $user, UserRepository $userRepository, ProductRepository $productRepository): Response
+    public function readUser(User $user, ProductRepository $productRepository): Response
     {
         //Get id of user connected to get his projects
-        $user = $userRepository->find($this->getUser());
+        // $user = $userRepository->find($this->getUser());
         $userId = $user->getId();
+        $currentUserId = $this->getUser()->getId();
 
-        $products = $productRepository->findBy(
-            ['seller' => $userId],
-            ['createdAt' => 'DESC'],
-            null,
-            null
-        );
-
-        return $this->render('security/profile/profile.html.twig', [
-            'user' => $user,
-            'products' => $products,
-        ]);
+        if ($userId == $currentUserId) {
+            $products = $productRepository->findBy(
+                ['seller' => $userId],
+                ['createdAt' => 'DESC'],
+                null,
+                null
+            );
+    
+            return $this->render('security/profile/profile.html.twig', [
+                'user' => $user,
+                'products' => $products,
+            ]);
+        }
+        else {
+            return $this->redirectToRoute('app_access_denied', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
     #[Route('/profile/{id}/update', name: 'app_user_update', methods: ['GET', 'POST'])]
