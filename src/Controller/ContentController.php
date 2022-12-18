@@ -2,13 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Brand;
 use App\Entity\Product;
-use App\Entity\Category;
-use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
-use App\Repository\CategoryRepository;
-use App\Repository\CartsProductsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

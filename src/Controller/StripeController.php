@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
 use App\Repository\CartsProductsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +19,6 @@ class StripeController extends AbstractController
 
         /** @var User $user **/
         $user = $this->getUser();
-        $userId = $this->getUser()->getId();
 
         $cart = $user->getCart();
         $cartProducts = $cart->getCartsProducts()->toArray();

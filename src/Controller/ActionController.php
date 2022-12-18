@@ -3,17 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Brand;
 use App\Entity\Product;
-use App\Form\BrandType;
-use App\Entity\Category;
 use App\Form\ProductType;
-use App\Form\CategoryType;
 use App\Entity\CartsProducts;
-use App\Repository\UserRepository;
-use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
-use App\Repository\CategoryRepository;
 use App\Repository\CartsProductsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
