@@ -36,11 +36,12 @@
         </div>
     </div>
 
-        <a href="{{ path('app_products') }}">Retour à la liste des produits</a>
+	{% if app.user.id == product.seller.id %}
+		<a href="{{ path('app_product_update', {'id': product.id}) }}">Mettre à jour</a>
+    	{{ include('content/product/_delete_form.html.twig') }}
+	{% endif %}
 
-    <a href="{{ path('app_product_update', {'id': product.id}) }}">Mettre à jour</a>
-
-    {{ include('content/product/_delete_form.html.twig') }}
+    <a href="{{ path('app_products') }}">Retour à la liste des produits</a>
 
 </div>
 {% endblock %}
