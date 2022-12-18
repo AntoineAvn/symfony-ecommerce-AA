@@ -18,7 +18,7 @@
             {% if product.status == 1 %}
 					<small class="text-success">En stock</small>
 					<div class="d-flex justify-content-end">
-						  <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-secondary">Ajouter au panier</a></div>
+						  <div class="d-flex justify-content-end"><a href="{{ path('app_product_addCart', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a></div>
 					</div>
 				{% endif %}
 				{% if product.status == 2 %}
